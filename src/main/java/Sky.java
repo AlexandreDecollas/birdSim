@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,37 +6,38 @@ public class Sky {
     public static final Integer width = 400;
     public static final Integer height = 400;
 
-    private JFrame sky;
+    protected JFrame skyFrame;
     private List<Bird> birds = new ArrayList<Bird>();
+    protected SkyFramePicture skyFramePicture;
 
+
+    public Sky() {
+        this.skyFramePicture = new SkyFramePicture(width, height);
+    }
 
     public Sky(String title) {
-        this.sky = new JFrame(title);
+        skyFrame = new JFrame(title);
+        skyFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        Canvas canvas = new Canvas();
-        canvas.setSize(width, height);
-        this.sky.add(canvas);
-        this.sky.pack();
-        this.sky.setVisible(true);
+        this.skyFramePicture = new SkyFramePicture(width, height);
+        this.skyFrame.add(skyFramePicture);
+        this.skyFrame.pack();
+        skyFrame.setSize(width, height);
+        this.skyFrame.setVisible(true);
+
     }
 
     public Integer getFlyingBirdsCount() {
         return this.birds.size();
     }
 
-    public void flyBirds() {
-        for (Bird bird : birds) {
-            Position position = bird.getPosition();
-            this.sky.getGraphics().fillOval((int) position.x, (int) position.y, 3, 3);
-        }
-    }
 
     public void addBird(Bird bird) {
         this.birds.add(bird);
     }
 
     public void addBird() {
-        Position position = new Position(this.sky.getSize().width, this.sky.getSize().height);
+        Position position = new Position(this.skyFrame.getSize().width, this.skyFrame.getSize().height);
         this.addBird(new Bird(position));
     }
 
@@ -53,5 +53,9 @@ public class Sky {
                 return false;
         }
         return true;
+    }
+
+    public void refreshSkyPicture() {
+        skyFramePicture.paintBirds(this.birds);
     }
 }
