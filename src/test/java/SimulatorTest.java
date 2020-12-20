@@ -50,6 +50,7 @@ public class SimulatorTest {
             Orientation orientation = bird.getOrientation();
             if (orientation.getValue() != firstBirdOrientation.getValue()) {
                 allBirdStartWithSameOrientation = false;
+                break;
             }
         }
 
@@ -96,8 +97,8 @@ public class SimulatorTest {
         orientation.setValue(0.3);
         double rad = Math.toRadians(orientation.getValue() * 360);
 
-        double xWithUpdate = Math.round(positionBefore.x + Math.cos(rad));
-        double yWithUpdate = Math.round(positionBefore.y - Math.sin(rad));
+        double xWithUpdate = positionBefore.x + Math.cos(rad);
+        double yWithUpdate = positionBefore.y - Math.sin(rad);
 
         this.sc.iterateTime(1);
         Position positionAfter = this.sc.getBirds().get(0).getPosition();
@@ -145,7 +146,7 @@ public class SimulatorTest {
     }
 
     @Test
-    @DisplayName("every birds should fly in line until the meet the bottom border")
+    @DisplayName("each birds should fly in line until the meet the bottom border")
     void shouldFlyInLineUntilBottomBorder() {
         this.sc.addBirdsInTheSky(1);
         Bird bird = this.sc.getBirds().get(0);
@@ -175,14 +176,78 @@ public class SimulatorTest {
 
         this.sc.iterateTime(1);
 
-        assertEquals(1, bird.getPosition().y );
+        assertEquals(1, bird.getPosition().y);
         assertEquals(200, bird.getPosition().x);
         assertEquals(0.75, bird.getOrientation().getValue());
     }
 
     @Test
+    @DisplayName("should rebound in the left border like a light ray")
+    void shouldReboundOnLeftLikeLightRay() {
+        this.sc.addBirdsInTheSky(1);
+        Bird bird = this.sc.getBirds().get(0);
+
+        bird.getOrientation().setValue(0.6);
+
+        bird.getPosition().x = 0;
+        bird.getPosition().y = 200;
+
+        this.sc.iterateTime(1);
+
+        assertEquals(0.9, bird.getOrientation().getValue());
+    }
+
+    @Test
+    @DisplayName("should rebound in the right border like a light ray")
+    void shouldReboundOnRightLikeLightRay() {
+        this.sc.addBirdsInTheSky(1);
+        Bird bird = this.sc.getBirds().get(0);
+
+        bird.getOrientation().setValue(0.9);
+
+        bird.getPosition().x = 400;
+        bird.getPosition().y = 200;
+
+        this.sc.iterateTime(1);
+
+        assertEquals(0.6, bird.getOrientation().getValue());
+    }
+
+    @Test
+    @DisplayName("should rebound in the top border like a light ray")
+    void shouldReboundOnTopLikeLightRay() {
+        this.sc.addBirdsInTheSky(1);
+        Bird bird = this.sc.getBirds().get(0);
+
+        bird.getOrientation().setValue(0.3);
+
+        bird.getPosition().x = 200;
+        bird.getPosition().y = 0;
+
+        this.sc.iterateTime(1);
+
+        assertEquals(0.7, bird.getOrientation().getValue());
+    }
+
+    @Test
+    @DisplayName("should rebound in the bottom border like a light ray")
+    void shouldReboundOnBottomLikeLightRay() {
+        this.sc.addBirdsInTheSky(1);
+        Bird bird = this.sc.getBirds().get(0);
+
+        bird.getOrientation().setValue(0.6);
+
+        bird.getPosition().x = 200;
+        bird.getPosition().y = 400;
+
+        this.sc.iterateTime(1);
+
+        assertEquals(0.4, bird.getOrientation().getValue());
+    }
+
+    @Test
     @DisplayName("Should iter 25 times per second when simulation runs")
-    void shouldIter25TimesWhenSimulationRuns() {
+    void shouldIter25TimesWhenSimulationRuns() throws InterruptedException {
         Integer ONE_SECONDE = 1;
         Simulator scWitness = new Simulator();
 

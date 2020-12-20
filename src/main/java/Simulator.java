@@ -1,9 +1,11 @@
 import java.util.List;
-import java.util.Objects;
 
 public class Simulator {
 
     private final Sky sky;
+
+    private static final double VERTICAL_IMPACT_FACTOR = 0.25;
+    private static final double HORIZONTAL_IMPACT_FACTOR = 0.5;
 
     public Simulator() {
         this.sky = new Sky("Bird Flight Container");
@@ -21,6 +23,7 @@ public class Simulator {
         for (int i = 0; i < nbBirds; i++) {
             this.sky.addBird();
         }
+        this.sky.refreshSkyPicture();
     }
 
     public List<Bird> getBirds() {
@@ -29,42 +32,86 @@ public class Simulator {
 
     public void iterateTime(Integer nbIterations) {
         for (int i = 0; i < nbIterations; i++) {
-            List<Bird> birds = this.getBirds();
-            for (Bird bird : birds) {
-                Position position = bird.getPosition();
-                Orientation orientation = bird.getOrientation();
-
-                if (isOutOfTheSky(position)) {
-                    orientation.setValue(invertAngle(orientation));
-                }
-
-                double rad = Math.toRadians(orientation.getValue() * 360);
-                position.x = computeNextXOnSameLine(position.x, rad);
-                position.y = computeNextYOnSameLine(position.y, rad);
-
-
-                bird.updatePosition(position);
-            }
+            updateBirdsPositionInTheSky();
         }
     }
 
-    private boolean isOutOfTheSky(Position position) {
-        return position.x >= Sky.width || position.x <= 0 || position.y >= Sky.height || position.y <= 0;
+    private void updateBirdsPositionInTheSky() {
+        List<Bird> birds = this.getBirds();
+        for (Bird bird : birds) {
+            Position position = getBirdPositionUpdated(bird);
+            bird.updatePosition(position);
+            sky.refreshSkyPicture();
+        }
+    }
+
+    private Position getBirdPositionUpdated(Bird bird) {
+        Position position = bird.getPosition();
+        Orientation orientation = bird.getOrientation();
+
+        if (isHorizontalImpact(position)) {
+            computeHorizontalImpact(orientation);
+        }
+        if (isVerticalImpact(position)) {
+            computeVerticalImpact(orientation);
+        }
+
+        double rad = Math.toRadians(orientation.getValue() * 360);
+        position.x = computeNextXOnSameLine(position.x, rad);
+        position.y = computeNextYOnSameLine(position.y, rad);
+        return position;
+    }
+
+    private void computeVerticalImpact(Orientation orientation) {
+        double angle = orientation.getValue();
+        double newAngle = computeNewAngleAfterImpact(angle, VERTICAL_IMPACT_FACTOR);
+        orientation.setValue(newAngle);
+    }
+
+    private void computeHorizontalImpact(Orientation orientation) {
+        double angle = orientation.getValue();
+        double newAngle = computeNewAngleAfterImpact(angle, HORIZONTAL_IMPACT_FACTOR);
+        orientation.setValue(newAngle);
+    }
+
+    private double computeNewAngleAfterImpact(double impactAngle, double impactConstant) {
+        return  (impactAngle - (impactAngle - impactConstant) * 2 + 0.5) % 1;
+
+    }
+
+    private boolean isHorizontalImpact(Position position) {
+        return position.x <= 0 || position.x >= Sky.width;
+    }
+
+    private boolean isVerticalImpact(Position position) {
+        return position.y <= 0 || position.y >= Sky.height;
     }
 
     private double computeNextXOnSameLine(double actualXPosition, double angleInRad) {
-        return Math.round(actualXPosition + Math.cos(angleInRad));
+        return actualXPosition + Math.cos(angleInRad);
     }
 
     private double computeNextYOnSameLine(double actualYPosition, double angleInRad) {
-        return Math.round(actualYPosition - Math.sin(angleInRad));
+        return actualYPosition - Math.sin(angleInRad);
     }
 
-    private double invertAngle(Orientation orientation) {
-        return (orientation.getValue() + 0.5) % 1;
+    public void start(Integer nbSeconds) throws InterruptedException {
+        for (int i = 0; i < nbSeconds * 25; i++) {
+            this.iterateTime(1);
+            Thread.sleep(40);
+        }
     }
 
-    public void start(Integer nbSeconds) {
-        this.iterateTime(nbSeconds * 25);
+    public void start() throws InterruptedException {
+        while (true) {
+            this.iterateTime(1);
+            Thread.sleep(40);
+        }
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        Simulator sim = new Simulator();
+        sim.addBirdsInTheSky(50);
+        sim.start();
     }
 }

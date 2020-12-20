@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 
 public class SkyFramePicture extends JComponent {
@@ -9,9 +10,12 @@ public class SkyFramePicture extends JComponent {
 
     @Override
     public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        for (Position position : positions) {
-            g.drawRect((int) position.x, (int) position.y, 10, 10);
+        try {
+            for (Position position : positions) {
+                g.drawRect((int) position.x, (int) position.y, 10, 10);
+            }
+        } catch (ConcurrentModificationException e ) {
+            // do nothing
         }
     }
 
