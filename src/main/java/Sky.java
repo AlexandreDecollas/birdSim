@@ -12,19 +12,24 @@ public class Sky {
 
 
     public Sky() {
-        this.skyFramePicture = new SkyFramePicture(width, height);
+        initSkyFramePicture();
     }
 
     public Sky(String title) {
         skyFrame = new JFrame(title);
         skyFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        this.skyFramePicture = new SkyFramePicture(width, height);
+        initSkyFramePicture();
         this.skyFrame.add(skyFramePicture);
         this.skyFrame.pack();
-        skyFrame.setSize(width, height);
+        skyFrame.setSize(width + 10, height + 10);
+
         this.skyFrame.setVisible(true);
 
+    }
+
+    private void initSkyFramePicture() {
+        this.skyFramePicture = new SkyFramePicture();
     }
 
     public Integer getFlyingBirdsCount() {
@@ -37,7 +42,7 @@ public class Sky {
     }
 
     public void addBird() {
-        Position position = new Position(this.skyFrame.getSize().width, this.skyFrame.getSize().height);
+        Position position = new Position(Sky.width, Sky.height);
         this.addBird(new Bird(position));
     }
 

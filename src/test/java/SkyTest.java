@@ -22,6 +22,10 @@ class SkyTest {
         public JFrame getSkyFrame() {
             return skyFrame;
         }
+
+        public SkyFramePicture getSkyFramePicture() {
+            return skyFramePicture;
+        }
     }
 
     @Test
@@ -88,7 +92,18 @@ class SkyTest {
     @DisplayName("simulator window should have size 400 x 400 at init")
     void shouldSize400x400AtInit() {
         SkyWrapper sky = new SkyWrapper();
-        assertEquals(Sky.width, sky.getSkyFrame().getSize().width);
-        assertEquals(Sky.height, sky.getSkyFrame().getSize().height);
+        assertEquals(Sky.width + 10, sky.getSkyFrame().getSize().width);
+        assertEquals(Sky.height + 10, sky.getSkyFrame().getSize().height);
     }
+
+    @Test
+    @DisplayName("Should draw a sky window bigger than the sky size")
+    void shouldDrawSkyWindowBiggerThanSkySize() {
+        SkyWrapper skyWrapper = new SkyWrapper();
+        JFrame skyFrame = skyWrapper.getSkyFrame();
+
+        assertTrue(skyFrame.getWidth() > Sky.width);
+        assertTrue(skyFrame.getHeight() > Sky.height);
+    }
+
 }
