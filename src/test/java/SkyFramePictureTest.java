@@ -15,19 +15,19 @@ class SkyFramePictureWrapper extends SkyFramePicture {
     }
 
     public Integer getTopMargin() {
-        return TOP_MARGIN;
+        return SimulatorConstants.TOP_MARGIN_IN_PX;
     }
 
     public Integer getLeftMargin() {
-        return LEFT_MARGIN;
+        return SimulatorConstants.LEFT_MARGIN_IN_PX;
     }
 
     public Integer getBottomMargin() {
-        return BOTTOM_MARGIN;
+        return SimulatorConstants.BOTTOM_MARGIN_IN_PX;
     }
 
     public Integer getRightMargin() {
-        return RIGHT_MARGIN;
+        return SimulatorConstants.RIGHT_MARGIN_IN_PX;
     }
 }
 

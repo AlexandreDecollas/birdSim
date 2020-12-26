@@ -11,6 +11,11 @@ public class Simulator {
         this.sky = new Sky("Bird Flight Container");
     }
 
+    public Simulator(Integer width, Integer height) {
+        this.sky = new Sky("Bird Flight Container", width, height);
+
+    }
+
     public Sky getSky() {
         return this.sky;
     }
@@ -80,11 +85,11 @@ public class Simulator {
     }
 
     private boolean isHorizontalImpact(Position position) {
-        return position.x <= 0 || position.x >= Sky.width;
+        return position.x <= 0 || position.x >= sky.getSkyWidth();
     }
 
     private boolean isVerticalImpact(Position position) {
-        return position.y <= 0 || position.y >= Sky.height;
+        return position.y <= 0 || position.y >= sky.getSkyHeight();
     }
 
     private double computeNextXOnSameLine(double actualXPosition, double angleInRad) {
@@ -105,13 +110,13 @@ public class Simulator {
     public void start() throws InterruptedException {
         while (true) {
             this.iterateTime(1);
-            Thread.sleep(40);
+            Thread.sleep(10);
         }
     }
 
     public static void main(String[] args) throws InterruptedException {
-        Simulator sim = new Simulator();
-        sim.addBirdsInTheSky(50);
+        Simulator sim = new Simulator(800, 800);
+        sim.addBirdsInTheSky(200);
         sim.start();
     }
 }

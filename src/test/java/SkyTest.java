@@ -10,21 +10,16 @@ import static org.mockito.Mockito.verify;
 
 class SkyTest {
     private class SkyWrapper extends Sky {
-        public SkyWrapper(JFrame skyFrame) {
-            super();
-            this.skyFrame = skyFrame;
-        }
-
         public SkyWrapper() {
             super("toto");
         }
 
-        public JFrame getSkyFrame() {
-            return skyFrame;
+        public SkyWrapper(Integer width, Integer height) {
+            super("toto", width, height);
         }
 
-        public SkyFramePicture getSkyFramePicture() {
-            return skyFramePicture;
+        public JFrame getSkyFrame() {
+            return skyFrame;
         }
     }
 
@@ -89,21 +84,21 @@ class SkyTest {
     }
 
     @Test
-    @DisplayName("simulator window should have size 400 x 400 at init")
-    void shouldSize400x400AtInit() {
-        SkyWrapper sky = new SkyWrapper();
-        assertEquals(Sky.width + 10, sky.getSkyFrame().getSize().width);
-        assertEquals(Sky.height + 10, sky.getSkyFrame().getSize().height);
-    }
-
-    @Test
     @DisplayName("Should draw a sky window bigger than the sky size")
     void shouldDrawSkyWindowBiggerThanSkySize() {
         SkyWrapper skyWrapper = new SkyWrapper();
         JFrame skyFrame = skyWrapper.getSkyFrame();
 
-        assertTrue(skyFrame.getWidth() > Sky.width);
-        assertTrue(skyFrame.getHeight() > Sky.height);
+        assertTrue(skyFrame.getWidth() > skyWrapper.getSkyWidth());
+        assertTrue(skyFrame.getHeight() > skyWrapper.getSkyHeight());
     }
 
+    @Test
+    @DisplayName("Should be ok to start with any size")
+    void shouldBeAbleToInitWithAnySize() {
+        SkyWrapper skyWrapper = new SkyWrapper(500, 500);
+
+        assertEquals(skyWrapper.getSkyWidth(), 500);
+        assertEquals(skyWrapper.getSkyHeight(), 500);
+    }
 }

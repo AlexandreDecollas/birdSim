@@ -3,29 +3,47 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Sky {
-    public static final Integer width = 400;
-    public static final Integer height = 400;
+    private Integer width = 400;
+    private Integer height = 400;
 
     protected JFrame skyFrame;
     private List<Bird> birds = new ArrayList<Bird>();
     protected SkyFramePicture skyFramePicture;
 
-
-    public Sky() {
-        initSkyFramePicture();
+    public Sky(String title) {
+        initNewSkyFrame(title);
     }
 
-    public Sky(String title) {
+    private void initNewSkyFrame(String title) {
         skyFrame = new JFrame(title);
         skyFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         initSkyFramePicture();
         this.skyFrame.add(skyFramePicture);
         this.skyFrame.pack();
-        skyFrame.setSize(width + 10, height + 10);
 
+        skyFrame.setSize(width, height);
+        this.skyFrame.repaint();
         this.skyFrame.setVisible(true);
 
+        width = this.skyFrame.getSize().width - SimulatorConstants.LEFT_MARGIN_IN_PX - SimulatorConstants.RIGHT_MARGIN_IN_PX - 5;
+        height = this.skyFrame.getSize().height - SimulatorConstants.TOP_MARGIN_IN_PX - SimulatorConstants.BOTTOM_MARGIN_IN_PX - 33;
+
+        skyFrame.setResizable(false);
+    }
+
+    public Sky(String title, Integer width, Integer height) {
+        this.width = width;
+        this.height = height;
+        this.initNewSkyFrame(title);
+    }
+
+    public Integer getSkyHeight() {
+        return this.height;
+    }
+
+    public Integer getSkyWidth() {
+        return this.width;
     }
 
     private void initSkyFramePicture() {
@@ -42,7 +60,7 @@ public class Sky {
     }
 
     public void addBird() {
-        Position position = new Position(Sky.width, Sky.height);
+        Position position = new Position(this.width, this.height);
         this.addBird(new Bird(position));
     }
 

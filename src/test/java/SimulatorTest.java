@@ -25,8 +25,8 @@ public class SimulatorTest {
     @DisplayName("Should provide a sky")
     void shouldProvideASky() {
         Sky sky = this.sc.getSky();
-        assertTrue(Sky.height > 0);
-        assertTrue(Sky.width > 0);
+        assertTrue(sky.getSkyHeight() > 0);
+        assertTrue(sky.getSkyWidth() > 0);
     }
 
     @Test
