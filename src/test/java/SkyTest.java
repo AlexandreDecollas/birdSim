@@ -97,8 +97,10 @@ class SkyTest {
     @DisplayName("Should be ok to start with any size")
     void shouldBeAbleToInitWithAnySize() {
         SkyWrapper skyWrapper = new SkyWrapper(500, 500);
+        Integer expectedWidth = skyWrapper.getSkyFrame().getSize().width - SimulatorConstants.LEFT_MARGIN_IN_PX - SimulatorConstants.RIGHT_MARGIN_IN_PX;
+        Integer expectedHeight = skyWrapper.getSkyFrame().getSize().height - SimulatorConstants.TOP_MARGIN_IN_PX - SimulatorConstants.BOTTOM_MARGIN_IN_PX - SimulatorConstants.WINDOW_MENU_SIZE;
 
-        assertEquals(skyWrapper.getSkyWidth(), 500);
-        assertEquals(skyWrapper.getSkyHeight(), 500);
+        assertEquals(expectedWidth, skyWrapper.getSkyWidth());
+        assertEquals(expectedHeight, skyWrapper.getSkyHeight());
     }
 }

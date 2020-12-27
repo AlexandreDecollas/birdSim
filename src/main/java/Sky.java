@@ -26,8 +26,8 @@ public class Sky {
         this.skyFrame.repaint();
         this.skyFrame.setVisible(true);
 
-        width = this.skyFrame.getSize().width - SimulatorConstants.LEFT_MARGIN_IN_PX - SimulatorConstants.RIGHT_MARGIN_IN_PX - 5;
-        height = this.skyFrame.getSize().height - SimulatorConstants.TOP_MARGIN_IN_PX - SimulatorConstants.BOTTOM_MARGIN_IN_PX - 33;
+        width = this.skyFrame.getSize().width - SimulatorConstants.LEFT_MARGIN_IN_PX - SimulatorConstants.RIGHT_MARGIN_IN_PX;
+        height = this.skyFrame.getSize().height - SimulatorConstants.TOP_MARGIN_IN_PX - SimulatorConstants.BOTTOM_MARGIN_IN_PX - SimulatorConstants.WINDOW_MENU_SIZE;
 
         skyFrame.setResizable(false);
     }

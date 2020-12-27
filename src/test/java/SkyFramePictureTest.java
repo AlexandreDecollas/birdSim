@@ -47,13 +47,18 @@ public class SkyFramePictureTest {
     @Test
     @DisplayName("should draw shapes at correct position")
     void shouldDrawShapesAtCorrectPositions() {
+        List<Bird> birds = new ArrayList<Bird>();
 
-        List<Position> positions = new ArrayList<Position>();
+        Bird bird1 = new Bird();
+        Bird bird2 = new Bird();
 
-        positions.add(new Position(400, 400));
-        positions.add(new Position(400, 400));
+        bird1.updatePosition(new Position(400, 400));
+        bird2.updatePosition(new Position(400, 400));
 
-        SkyFramePicture skyFramePicture = new SkyFramePicture(positions);
+        birds.add(bird1);
+        birds.add(bird2);
+
+        SkyFramePicture skyFramePicture = new SkyFramePicture(birds);
         Graphics graphicsMock = mock(Graphics.class);
 
         skyFramePicture.paintComponent(graphicsMock);
@@ -172,5 +177,40 @@ public class SkyFramePictureTest {
                                 100 - skyFramePictureWrapper.getTopMargin() - skyFramePictureWrapper.getBottomMargin()
                         },
                         anyInt());
+    }
+
+    @Test
+    @DisplayName("should draw a triangle per bird, horizontal right orientation")
+    void shouldDrawTrianglePerBird() {
+        SkyFramePictureWrapper skyFramePictureWrapper = new SkyFramePictureWrapper();
+        skyFramePictureWrapper.setSize(100, 100);
+        List<Bird> birds = new ArrayList<Bird>();
+        Bird bird = new Bird(new Position(100, 100));
+        bird.getPosition().x = 50;
+        bird.getPosition().y = 50;
+        bird.getOrientation().setValue(0);
+
+        birds.add(bird);
+
+        skyFramePictureWrapper.paintBirds(birds);
+        Graphics graphicsMock = mock(Graphics.class);
+
+        skyFramePictureWrapper.paintComponent(graphicsMock);
+        double angleInRad1 = Math.toRadians((bird.getOrientation().getValue() - 0.1) * 360);
+        double angleInRad2 = Math.toRadians((bird.getOrientation().getValue() + 0.1) * 360);
+        double x1 = bird.getPosition().x - Math.cos(angleInRad1) * 10 + SimulatorConstants.LEFT_MARGIN_IN_PX;
+        double x2 = bird.getPosition().x + SimulatorConstants.LEFT_MARGIN_IN_PX;
+        double y1 = bird.getPosition().y + Math.sin(angleInRad1) * 10 + SimulatorConstants.TOP_MARGIN_IN_PX;
+        double y2 = bird.getPosition().y + SimulatorConstants.TOP_MARGIN_IN_PX;
+        double x3 = bird.getPosition().x - Math.cos(angleInRad2) * 10 + SimulatorConstants.LEFT_MARGIN_IN_PX;
+        double x4 = bird.getPosition().x + SimulatorConstants.LEFT_MARGIN_IN_PX;
+        double y3 = bird.getPosition().y + Math.sin(angleInRad2) * 10 + SimulatorConstants.TOP_MARGIN_IN_PX;
+        double y4 = bird.getPosition().y + SimulatorConstants.TOP_MARGIN_IN_PX;
+
+        verify(graphicsMock, times(1))
+                .drawPolygon(
+                        new int[]{(int) x1, (int) x2, (int) x3, (int) x4},
+                        new int[]{(int) y1, (int) y2, (int) y3, (int) y4},
+                        3);
     }
 }
