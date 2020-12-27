@@ -145,12 +145,12 @@ public class SkyFramePictureTest {
         SkyFramePictureWrapper skyFramePictureWrapper = new SkyFramePictureWrapper();
         skyFramePictureWrapper.setSize(100, 100);
         List<Bird> birds = new ArrayList<Bird>();
-        Bird bird1 = new Bird(new Position(100, 100));
+        Bird bird1 = new Bird(100, 100);
         bird1.getPosition().x = 0;
         bird1.getPosition().y = 0;
         bird1.getOrientation().setValue(0);
 
-        Bird bird2 = new Bird(new Position(100, 100));
+        Bird bird2 = new Bird(100, 100);
         bird2.getPosition().x = 100 - skyFramePictureWrapper.getLeftMargin() - skyFramePictureWrapper.getRightMargin();
         bird2.getPosition().y = 100 - skyFramePictureWrapper.getTopMargin() - skyFramePictureWrapper.getBottomMargin();
         bird2.getOrientation().setValue(0);
@@ -185,7 +185,7 @@ public class SkyFramePictureTest {
         SkyFramePictureWrapper skyFramePictureWrapper = new SkyFramePictureWrapper();
         skyFramePictureWrapper.setSize(100, 100);
         List<Bird> birds = new ArrayList<Bird>();
-        Bird bird = new Bird(new Position(100, 100));
+        Bird bird = new Bird(100, 100);
         bird.getPosition().x = 50;
         bird.getPosition().y = 50;
         bird.getOrientation().setValue(0);

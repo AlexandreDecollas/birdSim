@@ -60,8 +60,7 @@ public class Sky {
     }
 
     public void addBird() {
-        Position position = new Position(this.width, this.height);
-        this.addBird(new Bird(position));
+        this.addBird(new Bird(this.width, this.height));
     }
 
     public List<Bird> getBirds() {
@@ -69,13 +68,24 @@ public class Sky {
     }
 
     public boolean equals(Sky sky) {
-        List<Bird> comparingBirds = sky.getBirds();
+        if (dimensionsNotEquals(sky)) {
+            return false;
+        }
 
-        for (int i = 0; i < birds.size(); i++) {
-            if (!comparingBirds.get(i).equals(birds.get(i)))
+        List<Bird> comparingBirds = sky.getBirds();
+        for (int birdIndex = 0; birdIndex < birds.size(); birdIndex++) {
+            if (areBirdsNotTheSame(comparingBirds, birdIndex))
                 return false;
         }
         return true;
+    }
+
+    private boolean areBirdsNotTheSame(List<Bird> comparingBirds, int i) {
+        return !comparingBirds.get(i).equals(birds.get(i));
+    }
+
+    private boolean dimensionsNotEquals(Sky sky) {
+        return !this.width.equals(sky.width) || !this.height.equals(sky.height);
     }
 
     public void refreshSkyPicture() {
