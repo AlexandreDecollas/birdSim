@@ -13,13 +13,17 @@ public class Bird {
     private Integer skyWidth;
     private Integer skyHeight;
 
+    private ILifeEntityShape shape;
+
     public Bird(Integer skyWidth, Integer skyHeight) {
         Position position = new Position(skyWidth, skyHeight);
         this.skyWidth = skyWidth;
         this.skyHeight = skyHeight;
         this.position = position;
         this.orientation = new Orientation();
+        this.shape = new Triangle();
     }
+
     public Orientation getOrientation() {
         return this.orientation;
     }
@@ -28,44 +32,16 @@ public class Bird {
         return this.position;
     }
 
-    public Position updatePosition(Position position) {
-        return this.position = position;
+    public void updatePosition(Position position) {
+        this.position = position;
     }
 
     public Boolean equals(Bird bird) {
         return this.orientation.equals(bird.orientation) && this.position.equals(bird.position);
     }
 
-    public void draw(Graphics g) {
-        double angleInRad1 = getAngleInRad(orientation.getValue() - 0.05);
-        double x1 = calculateTriangleSideXPosition(angleInRad1);
-        double x2 = position.x + SimulatorConstants.LEFT_MARGIN_IN_PX;
-        double y1 = calculateTriangleSideYPosition(angleInRad1);
-        double y2 = position.y + SimulatorConstants.TOP_MARGIN_IN_PX;
-
-        double angleInRad2 = getAngleInRad(orientation.getValue() + 0.05);
-        double x3 = calculateTriangleSideXPosition(angleInRad2);
-        double x4 = position.x + SimulatorConstants.LEFT_MARGIN_IN_PX;
-        double y3 = calculateTriangleSideYPosition(angleInRad2);
-        double y4 = position.y + SimulatorConstants.TOP_MARGIN_IN_PX;
-
-        g.drawPolygon(
-                new int[]{(int) x1, (int) x2, (int) x3, (int) x4},
-                new int[]{(int) y1, (int) y2, (int) y3, (int) y4},
-                3
-        );
-    }
-
-    private double getAngleInRad(double angle) {
-        return Math.toRadians(angle * 360);
-    }
-
-    private double calculateTriangleSideXPosition(double angle) {
-        return position.x - Math.cos(angle) * 10 + SimulatorConstants.LEFT_MARGIN_IN_PX;
-    }
-
-    private double calculateTriangleSideYPosition(double angle) {
-        return position.y + Math.sin(angle) * 10 + SimulatorConstants.TOP_MARGIN_IN_PX;
+    public void draw(Graphics graphic) {
+        this.shape.draw(orientation, position, graphic);
     }
 
     public void move() {
