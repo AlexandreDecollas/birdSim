@@ -5,6 +5,10 @@ public class Orientation {
         this.angle = Math.random();
     }
 
+    public Orientation(double angle) {
+        this.angle = angle;
+    }
+
     public double getValue() {
         return this.angle;
     }

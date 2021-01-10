@@ -29,6 +29,15 @@ public class Simulator {
         this.sky.refreshSkyPicture();
     }
 
+    public void addBirdsInTheSky(Integer nbBirds, double speed) {
+        for (int i = 0; i < nbBirds; i++) {
+            Bird bird = new Bird(this.sky.getSkyWidth(), this.sky.getSkyHeight());
+            bird.speedInMBS = speed;
+            this.sky.addBird(bird);
+        }
+        this.sky.refreshSkyPicture();
+    }
+
     public List<Bird> getBirds() {
         return this.sky.getBirds();
     }
@@ -57,13 +66,13 @@ public class Simulator {
     public void start() throws InterruptedException {
         while (true) {
             this.iterateTime(1);
-            Thread.sleep(10);
+            Thread.sleep(1000/25);
         }
     }
 
     public static void main(String[] args) throws InterruptedException {
-        Simulator sim = new Simulator(800, 800);
-        sim.addBirdsInTheSky(1000);
+        Simulator sim = new Simulator(1000, 1000);
+        sim.addBirdsInTheSky(100, 4);
         sim.start();
     }
 }

@@ -2,13 +2,16 @@ import java.awt.*;
 
 public class Bird {
 
+    public double speedInMBS = 1;
+
     private static final double VERTICAL_IMPACT_FACTOR = 0.25;
     private static final double HORIZONTAL_IMPACT_FACTOR = 0.5;
 
     private Orientation orientation;
     private Position position;
 
-    private Integer skyWidth, skyHeight;
+    private Integer skyWidth;
+    private Integer skyHeight;
 
     public Bird(Integer skyWidth, Integer skyHeight) {
         Position position = new Position(skyWidth, skyHeight);
@@ -17,12 +20,6 @@ public class Bird {
         this.position = position;
         this.orientation = new Orientation();
     }
-
-    public Bird() {
-        this.position = new Position(0, 0);
-        this.orientation = new Orientation();
-    }
-
     public Orientation getOrientation() {
         return this.orientation;
     }
@@ -40,13 +37,13 @@ public class Bird {
     }
 
     public void draw(Graphics g) {
-        double angleInRad1 = getAngleInRad(orientation.getValue() - 0.1);
+        double angleInRad1 = getAngleInRad(orientation.getValue() - 0.05);
         double x1 = calculateTriangleSideXPosition(angleInRad1);
         double x2 = position.x + SimulatorConstants.LEFT_MARGIN_IN_PX;
         double y1 = calculateTriangleSideYPosition(angleInRad1);
         double y2 = position.y + SimulatorConstants.TOP_MARGIN_IN_PX;
 
-        double angleInRad2 = getAngleInRad(orientation.getValue() + 0.1);
+        double angleInRad2 = getAngleInRad(orientation.getValue() + 0.05);
         double x3 = calculateTriangleSideXPosition(angleInRad2);
         double x4 = position.x + SimulatorConstants.LEFT_MARGIN_IN_PX;
         double y3 = calculateTriangleSideYPosition(angleInRad2);
@@ -73,7 +70,6 @@ public class Bird {
 
     public void move() {
         this.position = getBirdPositionUpdated();
-
     }
 
     private Position getBirdPositionUpdated() {
@@ -109,11 +105,11 @@ public class Bird {
     }
 
     private double computeNextXOnSameLine(double actualXPosition, double angleInRad) {
-        return actualXPosition + Math.cos(angleInRad);
+        return actualXPosition + this.speedInMBS * Math.cos(angleInRad);
     }
 
     private double computeNextYOnSameLine(double actualYPosition, double angleInRad) {
-        return actualYPosition - Math.sin(angleInRad);
+        return actualYPosition - this.speedInMBS * Math.sin(angleInRad);
     }
 
     private boolean isHorizontalImpact(Position position) {

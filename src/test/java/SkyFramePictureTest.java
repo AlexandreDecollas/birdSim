@@ -49,8 +49,8 @@ public class SkyFramePictureTest {
     void shouldDrawShapesAtCorrectPositions() {
         List<Bird> birds = new ArrayList<Bird>();
 
-        Bird bird1 = new Bird();
-        Bird bird2 = new Bird();
+        Bird bird1 = new Bird(400, 400);
+        Bird bird2 = new Bird(400, 400);
 
         bird1.updatePosition(new Position(400, 400));
         bird2.updatePosition(new Position(400, 400));
@@ -72,9 +72,9 @@ public class SkyFramePictureTest {
     void shouldDrawBirdsAtRefresh() {
         SkyFramePictureWrapper skyFramePictureWrapper = new SkyFramePictureWrapper();
         List<Bird> birds = new ArrayList<Bird>();
-        birds.add(new Bird());
-        birds.add(new Bird());
-        birds.add(new Bird());
+        birds.add(new Bird(400, 400));
+        birds.add(new Bird(400, 400));
+        birds.add(new Bird(400, 400));
 
         skyFramePictureWrapper.paintBirds(birds);
         Graphics graphicsMock = mock(Graphics.class);
@@ -88,7 +88,7 @@ public class SkyFramePictureTest {
     void shouldShowTriangleAtBirdPosition() {
         SkyFramePictureWrapper skyFramePictureWrapper = new SkyFramePictureWrapper();
         List<Bird> birds = new ArrayList<Bird>();
-        Bird bird = new Bird();
+        Bird bird = new Bird(400, 400);
 
         bird.getPosition().x = 200;
         bird.getPosition().y = 200;
@@ -196,8 +196,8 @@ public class SkyFramePictureTest {
         Graphics graphicsMock = mock(Graphics.class);
 
         skyFramePictureWrapper.paintComponent(graphicsMock);
-        double angleInRad1 = Math.toRadians((bird.getOrientation().getValue() - 0.1) * 360);
-        double angleInRad2 = Math.toRadians((bird.getOrientation().getValue() + 0.1) * 360);
+        double angleInRad1 = Math.toRadians((bird.getOrientation().getValue() - 0.05) * 360);
+        double angleInRad2 = Math.toRadians((bird.getOrientation().getValue() + 0.05) * 360);
         double x1 = bird.getPosition().x - Math.cos(angleInRad1) * 10 + SimulatorConstants.LEFT_MARGIN_IN_PX;
         double x2 = bird.getPosition().x + SimulatorConstants.LEFT_MARGIN_IN_PX;
         double y1 = bird.getPosition().y + Math.sin(angleInRad1) * 10 + SimulatorConstants.TOP_MARGIN_IN_PX;
