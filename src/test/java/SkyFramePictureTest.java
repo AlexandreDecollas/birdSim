@@ -1,6 +1,12 @@
+import model.Bird;
+import model.Sky;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Matchers;
+import simulator.SimulatorConstants;
+import view.Position;
+import view.SkyFramePicture;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -47,10 +53,9 @@ public class SkyFramePictureTest {
     @Test
     @DisplayName("should draw shapes at correct position")
     void shouldDrawShapesAtCorrectPositions() {
-        List<Bird> birds = new ArrayList<Bird>();
-
-        Bird bird1 = new Bird(400, 400);
-        Bird bird2 = new Bird(400, 400);
+        List<Bird> birds = new ArrayList<>();
+        Bird bird1 = getBird(400, 400);
+        Bird bird2 = getBird(400, 400);
 
         bird1.updatePosition(new Position(400, 400));
         bird2.updatePosition(new Position(400, 400));
@@ -64,31 +69,37 @@ public class SkyFramePictureTest {
         skyFramePicture.paintComponent(graphicsMock);
 
         verify(graphicsMock, times(2))
-                .drawPolygon(Matchers.<int[]>any(), Matchers.<int[]>any(), anyInt());
+                .drawPolygon(Matchers.any(), Matchers.any(), anyInt());
+    }
+
+    @NotNull
+    private Bird getBird(Integer width, Integer height) {
+        Sky sky = new Sky("test", width, height);
+        return new Bird(sky);
     }
 
     @Test
     @DisplayName("should draw one rectangle for one birds when asked")
     void shouldDrawBirdsAtRefresh() {
         SkyFramePictureWrapper skyFramePictureWrapper = new SkyFramePictureWrapper();
-        List<Bird> birds = new ArrayList<Bird>();
-        birds.add(new Bird(400, 400));
-        birds.add(new Bird(400, 400));
-        birds.add(new Bird(400, 400));
+        List<Bird> birds = new ArrayList<>();
+        birds.add(getBird(400, 400));
+        birds.add(getBird(400, 400));
+        birds.add(getBird(400, 400));
 
         skyFramePictureWrapper.paintBirds(birds);
         Graphics graphicsMock = mock(Graphics.class);
 
         skyFramePictureWrapper.paintComponent(graphicsMock);
-        verify(graphicsMock, times(3)).drawPolygon(Matchers.<int[]>any(), Matchers.<int[]>any(), anyInt());
+        verify(graphicsMock, times(3)).drawPolygon(Matchers.any(), Matchers.any(), anyInt());
     }
 
     @Test
     @DisplayName("should show one triangle for each bird, with head at bird position")
     void shouldShowTriangleAtBirdPosition() {
         SkyFramePictureWrapper skyFramePictureWrapper = new SkyFramePictureWrapper();
-        List<Bird> birds = new ArrayList<Bird>();
-        Bird bird = new Bird(400, 400);
+        List<Bird> birds = new ArrayList<>();
+        Bird bird = getBird(400, 400);
 
         bird.getPosition().x = 200;
         bird.getPosition().y = 200;
@@ -101,14 +112,14 @@ public class SkyFramePictureTest {
 
         skyFramePictureWrapper.paintComponent(graphicsMock);
         verify(graphicsMock, times(1))
-                .drawPolygon(Matchers.<int[]>any(), Matchers.<int[]>any(), anyInt());
+                .drawPolygon(Matchers.any(), Matchers.any(), anyInt());
     }
 
     @Test
     @DisplayName("should draw a rectangle for sky delimitation")
     void shouldDrawSkyDelimitation() {
         SkyFramePictureWrapper skyFramePictureWrapper = new SkyFramePictureWrapper();
-        List<Bird> birds = new ArrayList<Bird>();
+        List<Bird> birds = new ArrayList<>();
         skyFramePictureWrapper.paintBirds(birds);
         Graphics graphicsMock = mock(Graphics.class);
 
@@ -121,7 +132,7 @@ public class SkyFramePictureTest {
     @DisplayName("should draw a rectangle for sky delimitation with margins")
     void shouldDrawSkyDelimitationWithMargins() {
         SkyFramePictureWrapper skyFramePictureWrapper = new SkyFramePictureWrapper();
-        List<Bird> birds = new ArrayList<Bird>();
+        List<Bird> birds = new ArrayList<>();
         skyFramePictureWrapper.paintBirds(birds);
         Graphics graphicsMock = mock(Graphics.class);
 
@@ -144,13 +155,13 @@ public class SkyFramePictureTest {
     void shouldDrawBirdsOnlyInSkyDelimitation() {
         SkyFramePictureWrapper skyFramePictureWrapper = new SkyFramePictureWrapper();
         skyFramePictureWrapper.setSize(100, 100);
-        List<Bird> birds = new ArrayList<Bird>();
-        Bird bird1 = new Bird(100, 100);
+        List<Bird> birds = new ArrayList<>();
+        Bird bird1 = getBird(100, 100);
         bird1.getPosition().x = 0;
         bird1.getPosition().y = 0;
         bird1.getOrientation().setValue(0);
 
-        Bird bird2 = new Bird(100, 100);
+        Bird bird2 = getBird(100, 100);
         bird2.getPosition().x = 100 - skyFramePictureWrapper.getLeftMargin() - skyFramePictureWrapper.getRightMargin();
         bird2.getPosition().y = 100 - skyFramePictureWrapper.getTopMargin() - skyFramePictureWrapper.getBottomMargin();
         bird2.getOrientation().setValue(0);
@@ -184,8 +195,8 @@ public class SkyFramePictureTest {
     void shouldDrawTrianglePerBird() {
         SkyFramePictureWrapper skyFramePictureWrapper = new SkyFramePictureWrapper();
         skyFramePictureWrapper.setSize(100, 100);
-        List<Bird> birds = new ArrayList<Bird>();
-        Bird bird = new Bird(100, 100);
+        List<Bird> birds = new ArrayList<>();
+        Bird bird = getBird(100, 100);
         bird.getPosition().x = 50;
         bird.getPosition().y = 50;
         bird.getOrientation().setValue(0);

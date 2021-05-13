@@ -1,5 +1,9 @@
+import model.Bird;
+import model.Sky;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import view.Position;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -8,7 +12,7 @@ class BirdTest {
     @Test
     @DisplayName("Should have an oscilling trajectory")
     void shouldMoveByOscillations() {
-        Bird bird = new Bird(400, 400);
+        Bird bird = getBird(400, 400);
         bird.getOrientation().setValue(0);
         bird.getPosition().x = 200;
         bird.getPosition().y = 200;
@@ -42,14 +46,14 @@ class BirdTest {
     @Test
     @DisplayName("Should have a default speed")
     void shouldSetASpeed() {
-        Bird bird = new Bird(500, 500);
+        Bird bird = getBird(500, 500);
         assertEquals(1, bird.speedInMBS);
     }
 
     @Test
     @DisplayName("Should be able to change speed")
     void shouldBeAbleToChangeSpeed() {
-        Bird bird = new Bird(500, 500);
+        Bird bird = getBird(500, 500);
         bird.getPosition().x = 250;
         bird.getPosition().y = 250;
         bird.getOrientation().setValue(0);
@@ -58,5 +62,12 @@ class BirdTest {
         bird.move();
 
         assertEquals(252, bird.getPosition().x);
+    }
+
+    @NotNull
+    private Bird getBird(Integer width, Integer height) {
+        Sky sky = new Sky("test", width, height);
+
+        return new Bird(sky);
     }
 }

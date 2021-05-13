@@ -1,6 +1,11 @@
+import model.Bird;
+import model.Sky;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import simulator.Simulator;
+import view.Orientation;
+import view.Position;
 
 import java.util.List;
 

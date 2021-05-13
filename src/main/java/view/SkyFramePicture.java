@@ -1,3 +1,8 @@
+package view;
+
+import model.Bird;
+import simulator.SimulatorConstants;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -6,7 +11,7 @@ import java.util.List;
 
 public class SkyFramePicture extends JComponent {
 
-    private List<Bird> birds = new ArrayList<Bird>();
+    private List<Bird> birds = new ArrayList<>();
 
     @Override
     public void paintComponent(Graphics g) {

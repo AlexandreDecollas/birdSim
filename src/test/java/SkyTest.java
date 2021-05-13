@@ -1,5 +1,8 @@
+import model.Sky;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import simulator.SimulatorConstants;
+import view.SkyFramePicture;
 
 import javax.swing.*;
 

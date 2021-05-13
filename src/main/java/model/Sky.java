@@ -1,3 +1,8 @@
+package model;
+
+import simulator.SimulatorConstants;
+import view.SkyFramePicture;
+
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -6,9 +11,9 @@ public class Sky {
     private Integer width = 400;
     private Integer height = 400;
 
-    protected JFrame skyFrame;
-    private List<Bird> birds = new ArrayList<Bird>();
-    protected SkyFramePicture skyFramePicture;
+    public JFrame skyFrame;
+    private List<Bird> birds = new ArrayList<>();
+    public SkyFramePicture skyFramePicture;
 
     public Sky(String title) {
         initNewSkyFrame(title);
@@ -60,7 +65,7 @@ public class Sky {
     }
 
     public void addBird() {
-        this.addBird(new Bird(this.width, this.height));
+        this.addBird(new Bird(this));
     }
 
     public List<Bird> getBirds() {

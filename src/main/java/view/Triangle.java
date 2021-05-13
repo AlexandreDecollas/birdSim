@@ -1,3 +1,7 @@
+package view;
+
+import simulator.SimulatorConstants;
+
 import java.awt.*;
 
 public class Triangle implements ILifeEntityShape {

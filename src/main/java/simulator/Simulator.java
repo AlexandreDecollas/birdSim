@@ -1,3 +1,8 @@
+package simulator;
+
+import model.Bird;
+import model.Sky;
+
 import java.util.List;
 
 public class Simulator {
@@ -6,11 +11,11 @@ public class Simulator {
 
 
     public Simulator() {
-        this.sky = new Sky("Bird Flight Container");
+        this.sky = new Sky("model.Bird Flight Container");
     }
 
     public Simulator(Integer width, Integer height) {
-        this.sky = new Sky("Bird Flight Container", width, height);
+        this.sky = new Sky("model.Bird Flight Container", width, height);
 
     }
 
@@ -31,7 +36,7 @@ public class Simulator {
 
     public void addBirdsInTheSky(Integer nbBirds, double speed) {
         for (int i = 0; i < nbBirds; i++) {
-            Bird bird = new Bird(this.sky.getSkyWidth(), this.sky.getSkyHeight());
+            Bird bird = new Bird(this.sky);
             bird.speedInMBS = speed;
             this.sky.addBird(bird);
         }
