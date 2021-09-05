@@ -1,54 +1,68 @@
 package model;
 
-import model.trajectory.LinearTrajectory;
-import view.*;
-
-import java.awt.*;
-
 public class Bird {
+    private Integer x, y, angle;
 
-    public double speedInMBS = 1;
-
-    private final Orientation orientation;
-    private Position position;
-
-    private final Sky sky;
-
-    private final ILifeEntityShape shape;
-
-    public Bird(Sky sky) {
-        this.position = new Position(sky.getSkyWidth(), sky.getSkyHeight());
-
-        this.sky = sky;
-        this.orientation = new Orientation();
-        this.shape = new Triangle();
+    public Bird(Integer x, Integer y, Integer angle) {
+        this.x = x;
+        this.y = y;
+        this.angle = angle;
     }
 
-    public Orientation getOrientation() {
-        return this.orientation;
+    public Integer getY() {
+        return y;
     }
 
-    public Position getPosition() {
-        return this.position;
+    public Integer getX() {
+        return x;
     }
 
-    public void updatePosition(Position position) {
-        this.position = position;
+    public void setX(Integer newX) {
+        this.x = newX;
     }
 
-    public Boolean equals(Bird bird) {
-        return this.orientation.equals(bird.orientation) && this.position.equals(bird.position);
+    public void setY(Integer newY) {
+        y = newY;
     }
 
-    public void draw(Graphics graphic) {
-        this.shape.draw(orientation, position, graphic);
+    public Trajectory getTrajectory() {
+        return Trajectory.LINEAR;
     }
 
-    public void move() {
-        this.position = getBirdPositionUpdated();
+    public Integer getAngle() {
+        return angle;
     }
 
-    private Position getBirdPositionUpdated() {
-        return LinearTrajectory.computeNextPosition(this, this.sky);
+    public void move(Integer width, Integer height) {
+
+        angle = getBouncedAngle(width, height);
+
+        this.setX(Math.abs((int) (Math.cos(Math.toRadians(angle)) + this.x)));
+        this.setY((Math.abs((int) (Math.sin(Math.toRadians(angle)) + this.y))));
+    }
+
+    private Integer getBouncedAngle(Integer width, Integer height) {
+        if (x.equals(0) && angle >= 90 && angle < 180) {
+            return 180 - angle;
+        }
+        if ((x.equals(0) && angle >= 180 && angle < 270) || (x.equals(width) && angle >= 270 && angle < 360)) {
+            return 540 - angle;
+        }
+        if (x.equals(width) && angle >= 0 && angle < 90) {
+            return 180 - angle;
+        }
+        if (y.equals(0) && angle >= 270 && angle < 360) {
+            return 360 - angle;
+        }
+        if (y.equals(0) && angle >= 0 && angle < 90) {
+            return 360 - angle;
+        }
+        if (y.equals(height) && angle >= 0 && angle < 90) {
+            return 360 - angle;
+        }
+        if (y.equals(height) && angle >= 90 && angle < 180) {
+            return 360 - angle;
+        }
+        return angle;
     }
 }
