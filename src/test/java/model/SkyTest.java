@@ -52,8 +52,8 @@ class SkyTest {
 
         sky.move();
 
-        Integer x = sky.getBirds().get(0).getX();
-        Integer y = sky.getBirds().get(0).getY();
+        Double x = sky.getBirds().get(0).getX();
+        Double y = sky.getBirds().get(0).getY();
 
         assertNotEquals(50 + 60, x + y);
     }
@@ -83,8 +83,8 @@ class SkyTest {
 
         sky.move();
 
-        Integer x = sky.getBirds().get(0).getX();
-        Integer y = sky.getBirds().get(0).getY();
+        Double x = sky.getBirds().get(0).getX();
+        Double y = sky.getBirds().get(0).getY();
 
         assertEquals(61, x);
         assertEquals(50, y);
@@ -97,8 +97,8 @@ class SkyTest {
 
         sky.move();
 
-        Integer x = sky.getBirds().get(0).getX();
-        Integer y = sky.getBirds().get(0).getY();
+        Double x = sky.getBirds().get(0).getX();
+        Double y = sky.getBirds().get(0).getY();
 
         assertEquals(60, x);
         assertEquals(51, y);
@@ -111,8 +111,8 @@ class SkyTest {
 
         sky.move();
 
-        Integer x = sky.getBirds().get(0).getX();
-        Integer y = sky.getBirds().get(0).getY();
+        Double x = sky.getBirds().get(0).getX();
+        Double y = sky.getBirds().get(0).getY();
 
         assertEquals(59, x);
         assertEquals(50, y);
@@ -125,8 +125,8 @@ class SkyTest {
 
         sky.move();
 
-        Integer x = sky.getBirds().get(0).getX();
-        Integer y = sky.getBirds().get(0).getY();
+        Double x = sky.getBirds().get(0).getX();
+        Double y = sky.getBirds().get(0).getY();
 
         assertEquals(60, x);
         assertEquals(49, y);
@@ -139,7 +139,7 @@ class SkyTest {
 
         sky.move();
 
-        Integer y = sky.getBirds().get(0).getY();
+        Double y = sky.getBirds().get(0).getY();
 
         assertEquals(1, y);
     }

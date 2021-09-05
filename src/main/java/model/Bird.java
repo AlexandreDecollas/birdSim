@@ -1,27 +1,28 @@
 package model;
 
 public class Bird {
-    private Integer x, y, angle;
+    private Double x, y;
+    private Integer angle;
 
-    public Bird(Integer x, Integer y, Integer angle) {
+    public Bird(Double x, Double y, Integer angle) {
         this.x = x;
         this.y = y;
         this.angle = angle;
     }
 
-    public Integer getY() {
+    public Double getY() {
         return y;
     }
 
-    public Integer getX() {
+    public Double getX() {
         return x;
     }
 
-    public void setX(Integer newX) {
+    public void setX(Double newX) {
         this.x = newX;
     }
 
-    public void setY(Integer newY) {
+    public void setY(Double newY) {
         y = newY;
     }
 
@@ -37,8 +38,8 @@ public class Bird {
 
         angle = getBouncedAngle(width, height);
 
-        this.setX((int) (Math.round(Math.cos(Math.toRadians(angle)) + this.x)));
-        this.setY((int) (Math.round(Math.sin(Math.toRadians(angle)) + this.y)));
+        this.setX(Math.cos(Math.toRadians(angle)) + this.x);
+        this.setY(Math.sin(Math.toRadians(angle)) + this.y);
     }
 
     private Integer getBouncedAngle(Integer width, Integer height) {

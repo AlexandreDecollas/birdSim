@@ -24,7 +24,7 @@ public class Sky {
     }
 
     public void addBird(Integer y, Integer x, Integer angle) {
-        this.birds.add(new Bird(x, y, angle));
+        this.birds.add(new Bird(new Double(x), new Double(y), angle));
     }
 
     public List<Bird> getBirds() {

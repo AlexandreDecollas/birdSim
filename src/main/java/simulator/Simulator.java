@@ -8,14 +8,14 @@ public class Simulator {
 
         Integer WIDTH = 500;
         Integer HEIGHT = 500;
-        int NB_BIRDS = 200;
+        int NB_BIRDS = 500;
 
         SkyViewer skyViewer = new SkyViewer(WIDTH, HEIGHT);
 
         Sky sky = new Sky(HEIGHT, WIDTH);
         for (int i = 0; i < NB_BIRDS; i++)
             sky.addBird(randomPos(HEIGHT), randomPos(WIDTH), randomPos(359));
-            sky.addBird(100, 250, 232);
+            sky.addBird(100, 250, 268);
 
         while (true) {
             Thread.sleep(1000 / 25);
