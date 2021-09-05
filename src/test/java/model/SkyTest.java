@@ -205,15 +205,15 @@ class SkyTest {
     }
 
     @Test
-    @DisplayName("birds should bounce angle on bottom border of the sky, angle 40")
-    void birdsShouldBounceOnTheBottomBorderOfTheSkyAndAngle40() {
-        sky.addBird(0, width / 2, 40);
+    @DisplayName("birds should bounce angle on bottom border of the sky, angle 200")
+    void birdsShouldBounceOnTheBottomBorderOfTheSkyAndAngle200() {
+        sky.addBird(0, width / 2, 182);
 
         sky.move();
 
         Integer angle = sky.getBirds().get(0).getAngle();
 
-        assertEquals(320, angle);
+        assertEquals(178, angle);
     }
 
     @Test

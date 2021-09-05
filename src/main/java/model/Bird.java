@@ -37,30 +37,36 @@ public class Bird {
 
         angle = getBouncedAngle(width, height);
 
-        this.setX(Math.abs((int) (Math.cos(Math.toRadians(angle)) + this.x)));
-        this.setY((Math.abs((int) (Math.sin(Math.toRadians(angle)) + this.y))));
+        this.setX((int) (Math.round(Math.cos(Math.toRadians(angle)) + this.x)));
+        this.setY((int) (Math.round(Math.sin(Math.toRadians(angle)) + this.y)));
     }
 
     private Integer getBouncedAngle(Integer width, Integer height) {
-        if (x.equals(0) && angle >= 90 && angle < 180) {
+        if (x <= 0 && angle >= 90 && angle < 180) {
             return 180 - angle;
         }
-        if ((x.equals(0) && angle >= 180 && angle < 270) || (x.equals(width) && angle >= 270 && angle < 360)) {
+        if (x <= 0 && angle >= 180 && angle < 270){
             return 540 - angle;
         }
-        if (x.equals(width) && angle >= 0 && angle < 90) {
+        if ((x >= width && angle >= 270 && angle < 360)) {
+            return 540 - angle;
+        }
+        if (x >= width && angle >= 0 && angle < 90) {
             return 180 - angle;
         }
-        if (y.equals(0) && angle >= 270 && angle < 360) {
+        if (y <= 0 && angle >= 270 && angle < 360) {
             return 360 - angle;
         }
-        if (y.equals(0) && angle >= 0 && angle < 90) {
+        if (y <= 0 && angle >= 0 && angle < 90) {
             return 360 - angle;
         }
-        if (y.equals(height) && angle >= 0 && angle < 90) {
+        if (y >= height && angle >= 0 && angle < 90) {
             return 360 - angle;
         }
-        if (y.equals(height) && angle >= 90 && angle < 180) {
+        if (y >= height && angle >= 90 && angle < 180) {
+            return 360 - angle;
+        }
+        if (y <= 0 && angle >= 180 && angle < 270) {
             return 360 - angle;
         }
         return angle;
