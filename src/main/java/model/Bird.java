@@ -43,7 +43,7 @@ public class Bird {
     }
 
     private Integer getBouncedAngle(Integer width, Integer height) {
-        if (x <= 0 && angle >= 90 && angle < 180) {
+        if (x <= 0 && angle >= 90 && angle <= 180) {
             return 180 - angle;
         }
         if (x <= 0 && angle >= 180 && angle < 270){

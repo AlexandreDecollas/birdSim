@@ -239,5 +239,17 @@ class SkyTest {
 
         assertEquals(260, angle);
     }
+    
+    @Test
+    @DisplayName("A bounced angle should equal to 360 should always be converted to 0")
+    void convert360BouncedAngleTo0() {
+        sky.addBird(height/2, 0, 180);
+
+        sky.move();
+
+        Integer angle = sky.getBirds().get(0).getAngle();
+
+        assertEquals(0, angle);
+    }
 
 }

@@ -31,7 +31,10 @@ public class SkyFramePicture extends JComponent {
                 3
         );
 //        g.drawOval(xHead - 3, yHead - 3, 6, 6);
-//        g.drawString(bird.getAngle().toString() + ", x : " + bird.getX() + ", y : " + bird.getY(), xHead + 10, yHead + 10);
+        g.drawString(bird.getAngle().toString() +
+                        ", x : " + Math.round(bird.getX()) +
+                        ", y : " + Math.round(bird.getY()),
+                xHead + 10, yHead + 10);
     }
 
     public void paintBirds(List<Bird> birds) {
