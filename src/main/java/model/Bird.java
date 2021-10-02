@@ -55,7 +55,7 @@ public class Bird {
         double b = closestBird.getX() - x;
         double distance = Math.sqrt(a * a + b * b);
 
-        double angleInRadians = Math.acos(Math.abs(b / Math.sqrt(a * a + b * b)));
+        double angleInRadians = Math.acos(Math.abs(b / distance));
         double aimingOtherBirdAngle = (360 + ((int) (Math.toDegrees(angleInRadians)))) % 360;
         if (distance > 10)
             angle = aimingOtherBirdAngle > angle ? angle + angleVariation : angle - angleVariation;

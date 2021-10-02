@@ -8,7 +8,7 @@ public class Simulator {
 
         Integer WIDTH = 500;
         Integer HEIGHT = 500;
-        int NB_BIRDS = 50;
+        int NB_BIRDS = 1000;
 
         SkyViewer skyViewer = new SkyViewer(WIDTH, HEIGHT);
 

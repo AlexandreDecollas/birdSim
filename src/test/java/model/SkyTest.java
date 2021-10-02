@@ -262,7 +262,7 @@ class SkyTest {
 
         Integer angleBird1 = sky.getBirds().get(0).getAngle();
 
-        assertEquals(170, angleBird1);
+        assertEquals(177, angleBird1);
     }
 
     @Test
@@ -275,7 +275,7 @@ class SkyTest {
 
         Integer angleBird1 = sky.getBirds().get(1).getAngle();
 
-        assertEquals(170, angleBird1);
+        assertEquals(177, angleBird1);
     }
 
     @Test
@@ -288,7 +288,7 @@ class SkyTest {
 
         Integer angleBird1 = sky.getBirds().get(0).getAngle();
 
-        assertEquals(190, angleBird1);
+        assertEquals(183, angleBird1);
     }
 
     @Test
@@ -301,6 +301,6 @@ class SkyTest {
 
         Integer angleBird1 = sky.getBirds().get(1).getAngle();
 
-        assertEquals(190, angleBird1);
+        assertEquals(183, angleBird1);
     }
 }
