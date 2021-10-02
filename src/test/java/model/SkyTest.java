@@ -239,11 +239,11 @@ class SkyTest {
 
         assertEquals(260, angle);
     }
-    
+
     @Test
-    @DisplayName("A bounced angle should equal to 360 should always be converted to 0")
+    @DisplayName("A bounced angle that equal to 360 should always be converted to 0")
     void convert360BouncedAngleTo0() {
-        sky.addBird(height/2, 0, 180);
+        sky.addBird(height / 2, 0, 180);
 
         sky.move();
 
@@ -252,4 +252,55 @@ class SkyTest {
         assertEquals(0, angle);
     }
 
+    @Test
+    @DisplayName("birds should aim to orient itself toward the closest bird when distance > 10")
+    void birdsShouldAimToorientItselfTowardClosestBird() {
+        sky.addBird(50, 10, 180);
+        sky.addBird(61, 10, 180);
+
+        sky.move();
+
+        Integer angleBird1 = sky.getBirds().get(0).getAngle();
+
+        assertEquals(170, angleBird1);
+    }
+
+    @Test
+    @DisplayName("birds should aim to orient itself toward the closest bird when distance > 10 with inverted values")
+    void birdsShouldAimToorientItselfTowardClosestBirdWithInvertedValues() {
+        sky.addBird(50, 100, 180);
+        sky.addBird(61, 100, 180);
+
+        sky.move();
+
+        Integer angleBird1 = sky.getBirds().get(1).getAngle();
+
+        assertEquals(170, angleBird1);
+    }
+
+    @Test
+    @DisplayName("birds should aim to orient itself backward the closest bird when distance <= 10")
+    void birdsShouldAimToorientItselfBackwardClosestBird() {
+        sky.addBird(50, 10, 180);
+        sky.addBird(55, 10, 180);
+
+        sky.move();
+
+        Integer angleBird1 = sky.getBirds().get(0).getAngle();
+
+        assertEquals(190, angleBird1);
+    }
+
+    @Test
+    @DisplayName("birds should aim to orient itself backward the closest bird when distance <= 10 with inverted values")
+    void birdsShouldAimToorientItselfBackwardClosestBirdWithInvertedValues() {
+        sky.addBird(55, 10, 180);
+        sky.addBird(50, 10, 180);
+
+        sky.move();
+
+        Integer angleBird1 = sky.getBirds().get(1).getAngle();
+
+        assertEquals(190, angleBird1);
+    }
 }

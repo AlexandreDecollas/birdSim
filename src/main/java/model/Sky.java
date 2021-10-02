@@ -33,7 +33,7 @@ public class Sky {
 
     public void move() {
         for (Bird bird : this.birds){
-            bird.move(this.width, this.height);
+            bird.move(this.width, this.height, birds);
         }
     }
 }
