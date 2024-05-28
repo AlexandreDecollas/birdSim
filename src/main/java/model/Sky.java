@@ -5,26 +5,26 @@ import java.util.List;
 
 public class Sky {
 
-    private final Integer height;
-    private final Integer width;
+    private final Double height;
+    private final Double width;
 
     private List<Bird> birds = new ArrayList<>();
 
-    public Sky(Integer aHeight, Integer aWidth) {
+    public Sky(Double aHeight, Double aWidth) {
         this.height = aHeight;
         this.width = aWidth;
     }
 
-    public Integer getHeight() {
+    public Double getHeight() {
         return height;
     }
 
-    public Integer getWidth() {
+    public Double getWidth() {
         return width;
     }
 
-    public void addBird(Integer y, Integer x, Integer angle) {
-        this.birds.add(new Bird(new Double(x), new Double(y), angle));
+    public void addBird(Double y, Double x, Integer angle) {
+        this.birds.add(new Bird(x, y, angle, this.width, this.height));
     }
 
     public List<Bird> getBirds() {
@@ -32,8 +32,8 @@ public class Sky {
     }
 
     public void move() {
-        for (Bird bird : this.birds){
-            bird.move(this.width, this.height, birds);
+        for (Bird bird : this.birds) {
+            bird.move(birds);
         }
     }
 }

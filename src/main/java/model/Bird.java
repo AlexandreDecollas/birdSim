@@ -1,17 +1,23 @@
 package model;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Bird {
     private Double x, y;
     private Integer angle;
+    private final Double universWidth;
+    private final Double universHeight;
 
     private final Integer angleVariation = 3;
 
-    public Bird(Double x, Double y, Integer angle) {
+    public Bird(Double x, Double y, Integer angle, Double universeWidthSize, Double universeHeightSize) {
         this.x = x;
         this.y = y;
         this.angle = angle;
+        this.universWidth = universeWidthSize;
+        this.universHeight = universeHeightSize;
     }
 
     public Double getY() {
@@ -38,18 +44,18 @@ public class Bird {
         return angle;
     }
 
-    public void move(Integer width, Integer height, List<Bird> otherBirds) {
+    public void move(List<Bird> otherBirds) {
         if (otherBirds.size() > 1) {
-            setOrientationByClosestBird(width, height, otherBirds);
+            setOrientationByClosestBird(this.universWidth, this.universHeight, otherBirds);
         }
 
-        angle = getBouncedAngle(width, height);
+        angle = getBouncedAngle(this.universWidth, this.universHeight);
 
         this.setX(Math.cos(Math.toRadians(angle)) + this.x);
         this.setY(Math.sin(Math.toRadians(angle)) + this.y);
     }
 
-    private void setOrientationByClosestBird(Integer width, Integer height, List<Bird> otherBirds) {
+    private void setOrientationByClosestBird(Double width, Double height, List<Bird> otherBirds) {
         Bird closestBird = getClosestBird(width, height, otherBirds);
         double a = closestBird.getY() - y;
         double b = closestBird.getX() - x;
@@ -63,7 +69,7 @@ public class Bird {
             angle = aimingOtherBirdAngle <= angle ? angle + angleVariation : angle - angleVariation;
     }
 
-    private Bird getClosestBird(Integer width, Integer height, List<Bird> otherBirds) {
+    private Bird getClosestBird(Double width, Double height, List<Bird> otherBirds) {
         double distanceToClosest = width + height;
         Bird closestBird = null;
         for (Bird bird : otherBirds) {
@@ -86,7 +92,7 @@ public class Bird {
         return closestBird;
     }
 
-    private Integer getBouncedAngle(Integer width, Integer height) {
+    private Integer getBouncedAngle(Double width, Double height) {
         if (x <= 0 && angle >= 90 && angle <= 180) {
             return 180 - angle;
         }
@@ -116,4 +122,13 @@ public class Bird {
         }
         return angle;
     }
+
+    public Double getUniversWidth() {
+        return this.universWidth;
+    }
+
+    public Double getUniversHeight() {
+        return this.universHeight;
+    }
+
 }

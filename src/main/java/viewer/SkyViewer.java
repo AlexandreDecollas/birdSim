@@ -9,14 +9,14 @@ public class SkyViewer {
 
     private final SkyFramePicture skyFrame;
 
-    public SkyViewer(Integer width, Integer height) {
+    public SkyViewer(Double width, Double height) {
         JFrame sky = new JFrame("Sky viewer");
 
         this.skyFrame = new SkyFramePicture();
         sky.add(skyFrame);
         sky.pack();
 
-        sky.setSize(width, height);
+        sky.setSize((int) Math.floor(width), (int) Math.floor(height));
         sky.setVisible(true);
         sky.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }

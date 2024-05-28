@@ -21,7 +21,7 @@ public class SkyFramePicture extends JComponent {
     public void drawTriangle(Graphics g, Bird bird) {
         int xHead = (int) Math.round(bird.getX());
         int yHead = (int) Math.round(bird.getY());
-        g.drawOval(xHead - 3, yHead - 3, 6, 6);
+        g.drawRect(xHead - 3, yHead - 3, 6, 6);
     }
 
     public void paintBirds(List<Bird> birds) {
