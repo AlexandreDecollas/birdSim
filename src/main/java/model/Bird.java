@@ -1,7 +1,5 @@
 package model;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Bird {
@@ -10,14 +8,12 @@ public class Bird {
     private final Double universWidth;
     private final Double universHeight;
 
-    private final Integer angleVariation = 3;
-
-    public Bird(Double x, Double y, Integer angle, Double universeWidthSize, Double universeHeightSize) {
+    public Bird(Double x, Double y, Integer angle, Double skyWidthSize, Double skyHeightSize) {
         this.x = x;
         this.y = y;
         this.angle = angle;
-        this.universWidth = universeWidthSize;
-        this.universHeight = universeHeightSize;
+        this.universWidth = skyWidthSize;
+        this.universHeight = skyHeightSize;
     }
 
     public Double getY() {
@@ -63,6 +59,7 @@ public class Bird {
 
         double angleInRadians = Math.acos(Math.abs(b / distance));
         double aimingOtherBirdAngle = (360 + ((int) (Math.toDegrees(angleInRadians)))) % 360;
+        Integer angleVariation = 3;
         if (distance > 10)
             angle = aimingOtherBirdAngle > angle ? angle + angleVariation : angle - angleVariation;
         else
