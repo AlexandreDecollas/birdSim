@@ -63,7 +63,7 @@ public class Bird {
 
     public void orientTowards(Bird otherBird) {
         Integer angleToOtherBird = calculateAngleTo(otherBird);
-        if (angleToOtherBird >= (angle - 180 + 360) % 360) {
+        if (angleToOtherBird > (angle - 180 + 360) % 360) {
             angle = (angle - ANGLE_TOWARDING + 360) % 360;
         } else {
             angle = (angle + ANGLE_TOWARDING + 360) % 360;

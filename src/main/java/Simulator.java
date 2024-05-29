@@ -1,24 +1,22 @@
 import model.Sky;
 import viewer.SkyViewer;
 
+import static constants.SimulatorConstants.*;
 import static java.lang.Thread.sleep;
 
 public class Simulator {
     public static void main(String[] args) throws InterruptedException {
 
-        Double WIDTH = 500.0;
-        Double HEIGHT = 500.0;
-        int NB_BIRDS = 1;
 
-        SkyViewer skyViewer = new SkyViewer(WIDTH, HEIGHT);
+        SkyViewer skyViewer = new SkyViewer(SKY_WIDTH, SKY_HEIGHT);
 
-        Sky sky = new Sky(HEIGHT, WIDTH);
+        Sky sky = new Sky(SKY_HEIGHT, SKY_WIDTH);
         for (int i = 0; i < NB_BIRDS; i++)
-            sky.addBird(randomPos(HEIGHT), randomPos(WIDTH), randomAngle());
+            sky.addBird(randomPos(SKY_HEIGHT), randomPos(SKY_WIDTH), randomAngle());
 
 
         while (true) {
-            sleep(1000 / 500);
+            sleep(SLIP_INTERVAL);
             sky.move();
             skyViewer.paintBirds(sky.getBirds());
         }
