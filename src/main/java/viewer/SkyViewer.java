@@ -16,7 +16,7 @@ public class SkyViewer {
         sky.add(skyFrame);
         sky.pack();
 
-        sky.setSize((int) Math.floor(width), (int) Math.floor(height));
+        sky.setSize((int) Math.floor(width), (int) Math.floor(height) + 30);
         sky.setVisible(true);
         sky.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }

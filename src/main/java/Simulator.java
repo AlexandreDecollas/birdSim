@@ -18,7 +18,7 @@ public class Simulator {
 
 
         while (true) {
-            sleep(1000 / 50);
+            sleep(1000 / 500);
             sky.move();
             skyViewer.paintBirds(sky.getBirds());
         }

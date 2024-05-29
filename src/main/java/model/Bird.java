@@ -2,6 +2,8 @@ package model;
 
 import java.util.List;
 
+import static constants.SimulatorConstants.ANGLE_TOWARDING;
+
 public class Bird {
     private Double x, y;
     private Integer angle;
@@ -41,7 +43,7 @@ public class Bird {
     }
 
     public void move(List<Bird> otherBirds) {
-        if (otherBirds.size() > 1) {
+        if (!otherBirds.isEmpty()) {
             setOrientationByClosestBird(this.universWidth, this.universHeight, otherBirds);
         }
 
@@ -51,19 +53,36 @@ public class Bird {
         this.setY(Math.sin(Math.toRadians(angle)) + this.y);
     }
 
+    public Integer calculateAngleTo(Bird otherBird) {
+        double deltaX = otherBird.getX() - x;
+        double deltaY = otherBird.getY() - y;
+        double angle = Math.toDegrees(Math.atan2(deltaY, deltaX));
+        angle = (360 + angle) % 360;
+        return (int) angle;
+    }
+
+    public void orientTowards(Bird otherBird) {
+        Integer angleToOtherBird = calculateAngleTo(otherBird);
+        if (angleToOtherBird >= (angle - 180 + 360) % 360) {
+            angle = (angle - ANGLE_TOWARDING + 360) % 360;
+        } else {
+            angle = (angle + ANGLE_TOWARDING + 360) % 360;
+        }
+
+
+    }
+
     private void setOrientationByClosestBird(Double width, Double height, List<Bird> otherBirds) {
         Bird closestBird = getClosestBird(width, height, otherBirds);
+        if (closestBird == null) {
+            return;
+        }
         double a = closestBird.getY() - y;
         double b = closestBird.getX() - x;
         double distance = Math.sqrt(a * a + b * b);
 
-        double angleInRadians = Math.acos(Math.abs(b / distance));
-        double aimingOtherBirdAngle = (360 + ((int) (Math.toDegrees(angleInRadians)))) % 360;
-        Integer angleVariation = 3;
         if (distance > 10)
-            angle = aimingOtherBirdAngle > angle ? angle + angleVariation : angle - angleVariation;
-        else
-            angle = aimingOtherBirdAngle <= angle ? angle + angleVariation : angle - angleVariation;
+            orientTowards(closestBird);
     }
 
     private Bird getClosestBird(Double width, Double height, List<Bird> otherBirds) {
